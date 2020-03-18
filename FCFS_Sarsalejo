@@ -1,0 +1,81 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package fcfs_sarsalejo;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Sarsalejo
+ */
+public class FCFS_Sarsalejo {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) 
+    {
+        // TODO code application logic here
+        Scanner scan = new Scanner(System.in);
+        int n = 0;
+        float avgWaitTime = 0, avgTurnAround = 0;
+        System.out.print("Enter the number of processes: ");
+        n = scan.nextInt();
+        
+        System.out.println("Enter " + n + " processes: ");
+        String[] processes = new String[n];
+        int waitTime[] = new int[n];
+        int turnAround[] = new int[n]; 
+        
+        for(int i = 0;  i < n; i++)
+        {
+            processes[i] = scan.next();
+        }
+        System.out.println();
+        
+        System.out.println("Enter Burst Time: ");
+        int[] burstTime = new int[n];
+        
+        System.out.print("Processes \tBurst Time\n");
+        for(int i = 0;  i < n; i++)
+        {
+            System.out.print("   " + processes[i] + "\t\t    ");
+            burstTime[i] = scan.nextInt();
+            System.out.println();
+        }  
+        
+        waitTime(processes, n, burstTime, waitTime); 
+        turnAroundTime(processes, n, burstTime, waitTime, turnAround); 
+        
+        System.out.print("Processes \tBurst Time \tWaiting Time \tTurnaround Time\n");
+        for(int i = 0;  i < n; i++)
+        {
+            System.out.print("   " + processes[i] + "\t\t" + burstTime[i] + "\t\t" + waitTime[i] + "\t\t" + turnAround[i]);
+            System.out.println();
+            avgWaitTime +=  waitTime[i];
+            avgTurnAround += turnAround[i];
+        }
+        System.out.println();
+        System.out.println("Average Waiting Time: " + (avgWaitTime / n));
+        System.out.println("Average Turnaround Time: " + (avgTurnAround / n));
+    }
+    
+    static void waitTime(String processes[], int n, int burstTime[], int waitTime[]) 
+    { 
+        waitTime[0] = 0; 
+        
+        for (int i = 1; i < n; i++) 
+        { 
+            waitTime[i] = burstTime[i - 1] + waitTime[i - 1]; 
+        } 
+    } 
+    static void turnAroundTime(String processes[], int n, int burstTime[], int waitTime[], int turnAround[]) 
+    { 
+        for (int i = 0; i < n; i++) 
+        { 
+            turnAround[i] = burstTime[i] + waitTime[i]; 
+        } 
+    } 
+}
