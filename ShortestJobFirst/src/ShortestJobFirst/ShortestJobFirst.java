@@ -12,6 +12,7 @@ package ShortestJobFirst;
 import java.util.Scanner;
 public class ShortestJobFirst 
 {
+	//NON-PREEMPTIVE
 	public static void main(String args[])
 	{
 		Scanner input = new Scanner(System.in);
